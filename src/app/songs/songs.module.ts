@@ -7,6 +7,8 @@ import { SongsApiService } from './api/songs-api.service';
 import { StoreModule } from '@ngrx/store';
 import { SongStateReducer } from './+state/songs-state.reducer';
 import { SongsStateKey } from './+state/songs-state.models';
+import { SongsStateEffects } from './+state/songs-state.effects';
+import { EffectsModule } from '@ngrx/effects';
 
 const ROUTES = [
   { path: '', redirectTo: 'list', pathMatch: 'full' },
@@ -25,7 +27,8 @@ const ROUTES = [
   imports: [
     CommonModule,
     RouterModule.forChild(ROUTES),
-    StoreModule.forFeature(SongsStateKey, SongStateReducer)
+    StoreModule.forFeature(SongsStateKey, SongStateReducer),
+    EffectsModule.forFeature([SongsStateEffects])
   ],
   providers: [
     SongsApiService
