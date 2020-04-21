@@ -30,14 +30,15 @@ export class SongListComponent implements OnInit, OnDestroy {
   }
 
   onSearch(search: string) {
-    if (search) {
-      this.filteredSongList = this.songListSnapshot
-        .filter((x) => {
-          return x.title.toLowerCase()
-            .indexOf(search.toLowerCase()) > -1;
-        });
-    } else {
+    if (!search) {
       this.filteredSongList = this.songListSnapshot;
+      return;
     }
+
+    this.filteredSongList = this.songListSnapshot
+      .filter((x) => {
+        return x.title.toLowerCase()
+          .indexOf(search.toLowerCase()) > -1;
+      });
   }
 }
