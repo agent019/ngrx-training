@@ -8,12 +8,16 @@ import { SongsApiService } from './api/songs-api.service';
 import { StoreModule } from '@ngrx/store';
 import { SongsStateKey } from './+state/songs-state.model';
 import { SongStateReducer } from './+state/songs-state.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { SongsStateEffects } from './+state/song-state.effects';
+import { SongStateFacade } from './+state/song-state.facade';
 
 @NgModule({
   declarations: [SongListComponent, SongInfoComponent],
   imports: [
     CommonModule,
     StoreModule.forFeature(SongsStateKey, SongStateReducer),
+    EffectsModule.forFeature([SongsStateEffects]),
     RouterModule.forChild([
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       {
@@ -27,7 +31,8 @@ import { SongStateReducer } from './+state/songs-state.reducer';
     ]),
   ],
   providers: [
-    SongsApiService
+    SongsApiService,
+    SongStateFacade
   ]
 })
 export class SongsModule {}

@@ -8,5 +8,11 @@ export const SongStateReducer = createReducer(InitialSongState,
     const newState = { ...oldState };
     newState.songs = action.songs;
     return newState;
+  }),
+
+  on(actions.SetSearchString, (oldState, action) => {
+    const newState = { ...oldState };
+    newState.searchString = action.searchString;
+    return newState;
   })
 );

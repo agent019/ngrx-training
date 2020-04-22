@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { ROOT_REDUCER_TOKEN } from './+state/app.models';
 import { environment } from 'src/environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +28,8 @@ import { environment } from 'src/environments/environment';
         strictActionWithinNgZone: false,
       },
     }),
+    EffectsModule.forRoot([]),
+    // StoreRouterConnectingModule. // ???????
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [],

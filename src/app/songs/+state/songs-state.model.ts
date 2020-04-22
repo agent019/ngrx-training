@@ -4,8 +4,10 @@ export const SongsStateKey = 'songs';
 
 export interface ISongsState {
   songs: ISong[];
+  searchString: string;
 }
 
 export const InitialSongState: ISongsState = {
-  songs: []
+  songs: [],
+  searchString: ''
 };
