@@ -1,20 +1,40 @@
 import { Component } from '@angular/core';
-import { Store, select } from '@ngrx/store';
-import { SetSearchString } from '../+state/songs-state.actions';
-import { querySongList, querySongSearchString } from '../+state/songs-state.selectors';
+import { SongsStateFacade } from '../+state/songs-state.facade';
 
 @Component({
   selector: 'app-song-list',
-  templateUrl: './song-list.component.html',
+  template: `
+    <div class="container" style="padding: 20px;">
+        <div class="card">
+          <div class="card-header">
+            Songs:
+            <div style="float: right;">
+                <input placeholder="search" (input)="facade.onSearch($event.currentTarget.value)" [value]="facade.searchFilter$ | async" />
+            </div>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <td>Title</td>
+                <td>Artist</td>
+                <td>Length</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let song of facade.songsList$ | async" [routerLink]="['/', 'songs', 'info', song.songId]">
+                <td>{{ song.title }}</td>
+                <td>{{ song.artist }}</td>
+                <td>{{ song.length }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+  `,
   styleUrls: ['./song-list.component.scss'],
 })
 export class SongListComponent {
-  songsList$ = this.store.pipe(select(querySongList));
-  searchFilter$ = this.store.pipe(select(querySongSearchString));
 
-  constructor(private store: Store) {}
+  constructor(public facade: SongsStateFacade) {}
 
-  onSearch(search: string) {
-    this.store.dispatch(SetSearchString({ searchString: search }));
-  }
 }

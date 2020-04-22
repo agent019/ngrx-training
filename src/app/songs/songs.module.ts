@@ -9,6 +9,7 @@ import { SongStateReducer } from './+state/songs-state.reducer';
 import { SongsStateKey } from './+state/songs-state.models';
 import { SongsStateEffects } from './+state/songs-state.effects';
 import { EffectsModule } from '@ngrx/effects';
+import { SongsStateFacade } from './+state/songs-state.facade';
 
 const ROUTES = [
   { path: '', redirectTo: 'list', pathMatch: 'full' },
@@ -31,7 +32,8 @@ const ROUTES = [
     EffectsModule.forFeature([SongsStateEffects])
   ],
   providers: [
-    SongsApiService
+    SongsApiService,
+    SongsStateFacade
   ]
 })
 export class SongsModule {}
